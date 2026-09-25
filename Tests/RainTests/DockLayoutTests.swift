@@ -1,7 +1,7 @@
 import CoreGraphics
 import Foundation
 import Testing
-@testable import LoRainOSS
+@testable import Rain
 
 private let screen = CGRect(x: 0, y: 0, width: 1800, height: 1169)
 private let finderURL = "file:///System/Library/CoreServices/Finder.app/"
@@ -72,7 +72,7 @@ struct DockLayoutTests {
 
 struct DockPreferencesTests {
     private func makeDefaults() -> UserDefaults {
-        let suite = "lo-rain-oss.tests.\(UUID().uuidString)"
+        let suite = "rain.tests.\(UUID().uuidString)"
         return UserDefaults(suiteName: suite)!
     }
 

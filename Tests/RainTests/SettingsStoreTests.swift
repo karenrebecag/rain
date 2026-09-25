@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 import Testing
-@testable import LoRainOSS
+@testable import Rain
 
 struct ColorHexTests {
     @Test func roundTripsSixDigitHex() {
@@ -17,7 +17,7 @@ struct ColorHexTests {
 
 struct SettingsStoreTests {
     private func makeDefaults() -> UserDefaults {
-        UserDefaults(suiteName: "lo-rain-oss.tests.\(UUID().uuidString)")!
+        UserDefaults(suiteName: "rain.tests.\(UUID().uuidString)")!
     }
 
     @Test func freshInstallUsesDefaults() {

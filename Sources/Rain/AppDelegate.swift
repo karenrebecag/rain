@@ -25,7 +25,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private func buildStatusItem() {
         let item = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
-        item.button?.image = NSImage(systemSymbolName: "cloud.rain.fill", accessibilityDescription: "lo-rain-oss")
+        item.button?.image = NSImage(systemSymbolName: "cloud.rain.fill", accessibilityDescription: "Rain")
         item.button?.action = #selector(togglePopover)
         item.button?.target = self
         statusItem = item

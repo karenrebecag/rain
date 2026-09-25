@@ -1,49 +1,44 @@
-# lo-rain-oss
+# Rain for macOS
 
-Open-source, clean-room reimplementation of [lo-rain](https://lo.cafe/lo-rain)'s desktop weather
-effect for macOS: animated rain and fireflies drawn as a transparent overlay across your
-screens, controlled from a menu bar icon.
-
-Not affiliated with lo.cafe. No code or assets from the original app are included — the behavior
-was inferred from its public bundle metadata (`Info.plist`, exported symbol names) and
-reimplemented from scratch with SpriteKit, using original code and procedurally-drawn shapes
-instead of the original's texture/particle files.
+A small open-source menu bar app that draws gentle rain and glowing fireflies over your desktop.
+The effect lives in a transparent, click-through overlay on every screen, so it never gets in the
+way of what you're doing.
 
 ## Features
 
-- Rain drawn as a transparent overlay per screen
-- Configurable raindrops per second, speed, angle, opacity, color and FPS (30/60/120)
-- Splash effect where raindrops land
-- Fireflies: count, color, speed and how high they roam on screen
-- Fireflies react to the mouse hovering the Dock (optional — polls the pointer, so it costs a
-  bit of CPU when on). The Dock's frame is computed from `com.apple.dock` preferences, so no
-  Accessibility or Screen Recording permission is needed
-- Overlay can float above or stay below your other windows
-- Menu bar popover for all settings, persisted across launches
-- No trial, no license check, no telemetry — everything is free
+- Rain drawn as a transparent overlay on every screen, floating above your windows (or behind
+  them, if you prefer)
+- Raindrops per second, speed, angle, opacity and FPS (30/60/120), all adjustable live
+- Soft splashes where the raindrops land
+- Fireflies with adjustable count, color, speed and how high they roam
+- Fireflies scatter when your pointer hovers the Dock (optional)
+- Optional: keep the overlay out of screenshots and screen recordings
+- Uses no CPU when there's nothing to draw
+- Settings are remembered across launches
+- No accounts, no license keys, no network access, no telemetry
+
+The Dock's position is computed from the system Dock preferences, so the app needs no
+Accessibility or Screen Recording permission.
 
 ## Requirements
 
-- macOS 12+
-- Swift 5.9+ (Xcode 15+ or the Swift toolchain from swift.org)
+- macOS 12 or later
+- Swift 5.9+ (Xcode 15 or later, or the Swift toolchain from swift.org)
 
-## Run
+## Install
 
 ```bash
-swift run LoRainOSS
+./scripts/make-app.sh --install
 ```
 
-## Test
+This builds `Rain.app`, signs it locally and copies it to `/Applications`. Rain lives in the menu
+bar (the cloud icon); click it to open the settings.
+
+## Develop
 
 ```bash
-swift test
-```
-
-## Build a release binary
-
-```bash
-swift build -c release
-.build/release/LoRainOSS
+swift run Rain      # run without installing
+swift test          # run the test suite
 ```
 
 ## License

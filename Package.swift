@@ -2,17 +2,17 @@
 import PackageDescription
 
 let package = Package(
-    name: "LoRainOSS",
+    name: "Rain",
     platforms: [.macOS(.v12)],
     targets: [
         .executableTarget(
-            name: "LoRainOSS",
-            path: "Sources/LoRainOSS"
+            name: "Rain",
+            path: "Sources/Rain"
         ),
         .testTarget(
-            name: "LoRainOSSTests",
-            dependencies: ["LoRainOSS"],
-            path: "Tests/LoRainOSSTests"
+            name: "RainTests",
+            dependencies: ["Rain"],
+            path: "Tests/RainTests"
         )
     ]
 )

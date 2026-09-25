@@ -1,6 +1,6 @@
 import CoreGraphics
 import Testing
-@testable import LoRainOSS
+@testable import Rain
 
 private func close(_ a: CGFloat, _ b: CGFloat) -> Bool { abs(a - b) < 0.001 }
 

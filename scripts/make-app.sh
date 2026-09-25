@@ -1,24 +1,24 @@
 #!/usr/bin/env bash
-# Builds build/lo-rain-oss.app from the Swift package; pass --install to copy it to /Applications.
+# Builds build/Rain.app from the Swift package; pass --install to copy it to /Applications.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-APP_NAME="lo-rain-oss"
-BUNDLE_ID="com.karenrebecag.lo-rain-oss"
+APP_NAME="Rain"
+BUNDLE_ID="com.karenrebecag.rain"
 VERSION="${VERSION:-0.1.0}"
 APP="build/${APP_NAME}.app"
 
 swift build -c release
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS"
-cp .build/release/LoRainOSS "$APP/Contents/MacOS/LoRainOSS"
+cp .build/release/Rain "$APP/Contents/MacOS/Rain"
 
 cat > "$APP/Contents/Info.plist" <<PLIST
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>CFBundleExecutable</key><string>LoRainOSS</string>
+    <key>CFBundleExecutable</key><string>Rain</string>
     <key>CFBundleIdentifier</key><string>${BUNDLE_ID}</string>
     <key>CFBundleName</key><string>${APP_NAME}</string>
     <key>CFBundleDisplayName</key><string>${APP_NAME}</string>
@@ -37,7 +37,7 @@ codesign --force --sign - "$APP"
 echo "Built $APP"
 
 if [[ "${1:-}" == "--install" ]]; then
-    pkill -x LoRainOSS 2>/dev/null || true
+    pkill -x Rain 2>/dev/null || true
     rm -rf "/Applications/${APP_NAME}.app"
     ditto "$APP" "/Applications/${APP_NAME}.app"
     echo "Installed /Applications/${APP_NAME}.app"

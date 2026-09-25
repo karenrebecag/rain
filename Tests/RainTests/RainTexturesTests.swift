@@ -1,6 +1,6 @@
 import CoreGraphics
 import Testing
-@testable import LoRainOSS
+@testable import Rain
 
 // Renders a CGImage into a known RGBA buffer; row 0 is the top of the image.
 private func alphaSampler(_ image: CGImage) -> (_ x: Int, _ y: Int) -> Double {

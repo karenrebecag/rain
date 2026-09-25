@@ -1,6 +1,6 @@
 import AppKit
 import Testing
-@testable import LoRainOSS
+@testable import Rain
 
 @MainActor
 struct ColorPanelControllerTests {

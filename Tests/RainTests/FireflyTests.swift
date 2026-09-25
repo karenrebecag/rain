@@ -1,7 +1,7 @@
 import AppKit
 import SpriteKit
 import Testing
-@testable import LoRainOSS
+@testable import Rain
 
 private let tallBounds = CGRect(x: 0, y: 0, width: 1000, height: 10_000)
 
@@ -52,7 +52,7 @@ struct FireflyTests {
 
 struct WeatherSceneTests {
     private func makeScene() -> (WeatherScene, SettingsStore) {
-        let store = SettingsStore(defaults: UserDefaults(suiteName: "lo-rain-oss.tests.\(UUID().uuidString)")!)
+        let store = SettingsStore(defaults: UserDefaults(suiteName: "rain.tests.\(UUID().uuidString)")!)
         return (WeatherScene(size: CGSize(width: 1000, height: 1000), settings: store), store)
     }
 

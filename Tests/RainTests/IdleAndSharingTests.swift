@@ -1,10 +1,10 @@
 import AppKit
 import SpriteKit
 import Testing
-@testable import LoRainOSS
+@testable import Rain
 
 private func makeStore() -> SettingsStore {
-    SettingsStore(defaults: UserDefaults(suiteName: "lo-rain-oss.tests.\(UUID().uuidString)")!)
+    SettingsStore(defaults: UserDefaults(suiteName: "rain.tests.\(UUID().uuidString)")!)
 }
 
 @MainActor
@@ -78,7 +78,7 @@ struct DockTrackingPolicyTests {
 
 @MainActor
 struct ScreenSharingTests {
-    @Test func overlayIsSharedByDefaultLikeTheOriginal() {
+    @Test func overlayIsSharedByDefault() {
         let store = makeStore()
         #expect(store.hideFromScreenSharing == false)
         let window = OverlayWindow(screen: NSScreen.screens[0], settings: store)
@@ -94,7 +94,7 @@ struct ScreenSharingTests {
     }
 
     @Test func sharingChoicePersists() {
-        let defaults = UserDefaults(suiteName: "lo-rain-oss.tests.\(UUID().uuidString)")!
+        let defaults = UserDefaults(suiteName: "rain.tests.\(UUID().uuidString)")!
         SettingsStore(defaults: defaults).hideFromScreenSharing = true
         #expect(SettingsStore(defaults: defaults).hideFromScreenSharing)
     }
