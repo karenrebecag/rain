@@ -30,6 +30,24 @@ struct FireflyTests {
         let moved = hypot(firefly.position.x - 500, firefly.position.y - 5000)
         #expect(moved >= 4 && moved <= 10.001)
     }
+
+    // Dragging the speed slider fires setSpeed on every tick; re-rolling the heading each
+    // time made fireflies jitter. Speed must scale, heading must stay.
+    @Test func setSpeedKeepsTheHeading() {
+        let firefly = Firefly(color: .yellow, speed: 40)
+        firefly.position = CGPoint(x: 500, y: 5000)
+        firefly.update(delta: 0.01, bounds: tallBounds, dockHoverPoint: nil, dockHoverRadius: 90)
+        let before = CGVector(dx: firefly.position.x - 500, dy: firefly.position.y - 5000)
+
+        firefly.setSpeed(80)
+        let start = firefly.position
+        firefly.update(delta: 0.01, bounds: tallBounds, dockHoverPoint: nil, dockHoverRadius: 90)
+        let after = CGVector(dx: firefly.position.x - start.x, dy: firefly.position.y - start.y)
+
+        // SKNode stores positions as Float, so ~0.0005 pt of rounding at y = 5000 is expected.
+        #expect(abs(after.dx - before.dx * 2) < 0.002)
+        #expect(abs(after.dy - before.dy * 2) < 0.002)
+    }
 }
 
 struct WeatherSceneTests {

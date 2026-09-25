@@ -31,7 +31,13 @@ final class WeatherScene: SKScene {
     // @Published emits before the property changes, so each sink uses the emitted value.
     private func observe(_ settings: SettingsStore) {
         settings.$fireflyCount
-            .sink { [weak self] count in self?.syncFireflies(count: count) }
+            .sink { [weak self] count in
+                self?.syncFireflies(count: count)
+                if count > 0 { self?.resumeFromIdle() }
+            }
+            .store(in: &cancellables)
+        settings.$isRaining
+            .sink { [weak self] raining in if raining { self?.resumeFromIdle() } }
             .store(in: &cancellables)
         settings.$fireflySpeed
             .sink { [weak self] speed in self?.fireflies.forEach { $0.setSpeed(speed) } }
@@ -69,6 +75,21 @@ final class WeatherScene: SKScene {
         }
         advanceDrops(delta: delta, settings: settings)
         advanceFireflies(delta: delta, settings: settings)
+
+        // Waiting for `children` to empty lets the last drops and splashes finish first.
+        if !settings.isRaining && children.isEmpty {
+            pauseWhileIdle()
+        }
+    }
+
+    // A paused SKView stops both update() and rendering, so an empty sky costs no CPU.
+    private func pauseWhileIdle() {
+        view?.isPaused = true
+        lastUpdateTime = 0
+    }
+
+    private func resumeFromIdle() {
+        view?.isPaused = false
     }
 
     private func spawnDrops(delta: TimeInterval, settings: SettingsStore) {

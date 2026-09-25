@@ -33,9 +33,13 @@ final class Firefly: SKNode {
     }
 
     func setSpeed(_ speed: Double) {
+        let scale = baseSpeed > 0 ? CGFloat(speed / baseSpeed) : 0
         baseSpeed = speed
-        fleeing = false
-        pickNewDirection()
+        if scale > 0 {
+            velocity = CGVector(dx: velocity.dx * scale, dy: velocity.dy * scale)
+        } else {
+            pickNewDirection()
+        }
     }
 
     func update(delta: TimeInterval, bounds: CGRect, dockHoverPoint: CGPoint?, dockHoverRadius: CGFloat) {

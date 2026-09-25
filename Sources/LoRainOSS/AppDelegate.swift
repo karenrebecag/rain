@@ -88,14 +88,19 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             }
             .store(in: &cancellables)
 
-        settings.$dockHoverTrackingEnabled
-            .sink { [weak self] enabled in
-                enabled ? self?.dockHoverTracker.start() : self?.dockHoverTracker.stop()
+        settings.$hideFromScreenSharing
+            .sink { [weak self] hidden in
+                self?.overlayWindows.values.forEach { $0.applySharing(hidden: hidden) }
             }
             .store(in: &cancellables)
 
-        if settings.dockHoverTrackingEnabled {
-            dockHoverTracker.start()
-        }
+        settings.$dockHoverTrackingEnabled
+            .combineLatest(settings.$fireflyCount)
+            .map { DockHoverTracker.shouldTrack(enabled: $0, fireflyCount: $1) }
+            .removeDuplicates()
+            .sink { [weak self] track in
+                track ? self?.dockHoverTracker.start() : self?.dockHoverTracker.stop()
+            }
+            .store(in: &cancellables)
     }
 }

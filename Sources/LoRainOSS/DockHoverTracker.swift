@@ -12,6 +12,11 @@ final class DockHoverTracker: ObservableObject {
     private let layoutRefreshTicks = 13
     private let dockDefaults = UserDefaults(suiteName: "com.apple.dock")
 
+    // Polling the pointer only pays off when something on screen can react to the hover.
+    static func shouldTrack(enabled: Bool, fireflyCount: Int) -> Bool {
+        enabled && fireflyCount > 0
+    }
+
     func start() {
         stop()
         refreshLayout()

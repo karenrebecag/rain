@@ -18,6 +18,7 @@ final class SettingsStore: ObservableObject {
     @Published var fireflyColor: Color { didSet { defaults.set(fireflyColor.hexString, forKey: Key.fireflyColor) } }
 
     @Published var dockHoverTrackingEnabled: Bool { didSet { defaults.set(dockHoverTrackingEnabled, forKey: Key.dockHover) } }
+    @Published var hideFromScreenSharing: Bool { didSet { defaults.set(hideFromScreenSharing, forKey: Key.hideFromSharing) } }
 
     private let defaults: UserDefaults
 
@@ -39,6 +40,7 @@ final class SettingsStore: ObservableObject {
         fireflyColor = Color(hex: defaults.string(forKey: Key.fireflyColor)) ?? .yellow
 
         dockHoverTrackingEnabled = defaults.object(forKey: Key.dockHover) as? Bool ?? true
+        hideFromScreenSharing = defaults.object(forKey: Key.hideFromSharing) as? Bool ?? false
     }
 
     private enum Key {
@@ -55,6 +57,7 @@ final class SettingsStore: ObservableObject {
         static let fireflySpeed = "fireflySpeed"
         static let fireflyColor = "fireflyColor"
         static let dockHover = "dockHoverTrackingEnabled"
+        static let hideFromSharing = "hideFromScreenSharing"
     }
 }
 

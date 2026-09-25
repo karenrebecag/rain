@@ -33,6 +33,7 @@ final class OverlayWindow: NSWindow {
         setFrame(frame, display: false)
         applyLevel(above: settings.floatsAboveWindows)
         applyPreferredFPS(settings.fps)
+        applySharing(hidden: settings.hideFromScreenSharing)
 
         scene.scaleMode = .resizeFill
         scene.windowOrigin = frame.origin
@@ -48,6 +49,11 @@ final class OverlayWindow: NSWindow {
             let desktopIconLevel = Int(CGWindowLevelForKey(.desktopIconWindow))
             level = NSWindow.Level(rawValue: desktopIconLevel + 1)
         }
+    }
+
+    // Verified on macOS 26.5: `.none` keeps the overlay out of screencapture output.
+    func applySharing(hidden: Bool) {
+        sharingType = hidden ? .none : .readOnly
     }
 
     func applyPreferredFPS(_ fps: Int) {

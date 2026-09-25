@@ -48,6 +48,12 @@ struct MenuBarView: View {
                     .foregroundStyle(.secondary)
 
                 Divider()
+                Toggle("Hide from screen sharing", isOn: $settings.hideFromScreenSharing)
+                Text("Keeps the rain out of screenshots, recordings and video calls.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+
+                Divider()
                 Button("Quit lo-rain-oss", role: .destructive, action: onQuit)
             }
             .padding(16)
